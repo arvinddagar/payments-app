@@ -1,29 +1,11 @@
 - currency = payment.currency
 
 .content-box-mega
-  h2.first-one=t('payments.bundles.section-title')
   .bundle-container
     - PricingTier.order(:default_sessions).each do |tier|
       - unit = tier.priced_in?(currency) ? symbol_for_currency(currency) : symbol_for_currency(ABCD::DEFAULT_CURRENCY)
-      .bundle class=tier.name class=("featured" if tier.featured?)
-        header
-          h4.first-one=t("payments.bundles.#{tier.type}-title")
-          / .bundle-definition=t("payments.bundles.#{tier.type}-definition", amount: number_to_currency(tier.price_per_hour(currency), unit: unit)).html_safe
-        .bundle-price
-          .bundle-price-sessions=t("payments.bundles.#{tier.type}-sessions", sessions_count: tier.default_sessions).html_safe
-          .bundle-price-hours=t("payments.bundles.#{tier.type}-hours", amount: number_to_currency(tier.price_per_session(currency), unit: unit)).html_safe
-        .bundle-attributes
-          p=t('payments.bundles.features-prefix')
-          ul
-            - t("payments.bundles.features-#{tier.type}").each do |feature|
-              li= feature
-
-        footer
-          = form_for payment do |f|
-            = f.hidden_field :sessions_count, value: tier.default_sessions
-            button.btn.btn-block.btn-bundle class=(tier.featured? ? "btn-success" : "btn-primary")
-              = t("payments.bundles.button-#{tier.type}", sessions_count: tier.default_sessions, amount: number_to_currency(tier.package_cost(currency), unit: unit)).html_safe
-
-        - if tier.most_popular?
-          .ribbon-container
-            .ribbon.ribbon-right.ribbon-success=t('payments.bundles.popular')
+      footer
+        = form_for payment do |f|
+          = f.hidden_field :sessions_count, value: tier.default_sessions
+          button.btn.btn-block.btn-bundle class=(tier.featured? ? "btn-success" : "btn-primary")
+            = t("payments.bundles.button-#{tier.type}", sessions_count: tier.default_sessions, amount: number_to_currency(tier.package_cost(currency), unit: unit)).html_safe

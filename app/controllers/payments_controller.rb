@@ -21,7 +21,7 @@ class PaymentsController < ApplicationController
   def show
     @payment = current_user.payments.find(params[:id])
 
-    redirect_to billing_account_url if @payment.charged?
+    redirect_to new_payment_url if @payment.charged?
   end
 
   def update
@@ -40,7 +40,7 @@ class PaymentsController < ApplicationController
         process_stripe_payment
       end
     else
-      redirect_to billing_account_url
+      redirect_to new_payment_url
     end
   end
 
@@ -84,7 +84,7 @@ class PaymentsController < ApplicationController
       redirect_to @payment.paypal_url
     elsif @payment.valid_paypal_payment?
       @payment.charge
-      redirect_to billing_account_url, successful_payment_flash
+      redirect_to new_payment_url, successful_payment_flash
     else
       redirect_to @payment
     end
@@ -94,7 +94,7 @@ class PaymentsController < ApplicationController
     @payment.update_column(:stripe_token, params[:stripeToken])
 
     if !@payment.charged? && @payment.stripe_token.present? && @payment.charge
-      redirect_to billing_account_url, successful_payment_flash
+      redirect_to new_payment_url, successful_payment_flash
     else
       redirect_to @payment, alert: I18n.t('payments.stripe.payment-error')
     end
