@@ -1,0 +1,15 @@
+- if object.errors.present?
+  .alert.alert-error.inactive
+    button.close type="button" data-dismiss="alert"
+      i.icon-remove
+
+    .alert-content
+      h3.first-one.last-one
+       i.icon-warning-sign
+       | &nbsp;&nbsp;
+       = t('alert.errors.title').html_safe
+      ul
+      - object.errors.full_messages.each do |error|
+        li=error
+
+    button.btn data-dismiss="alert"= t('alert.errors.ok')

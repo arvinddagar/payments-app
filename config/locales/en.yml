@@ -1,0 +1,43 @@
+en:
+  date:
+    formats:
+      default: '%m/%d/%Y'
+      with_weekday: '%a %m/%d/%y'
+
+  time:
+    formats:
+      default: '%a, %b %-d, %Y at %r'
+      date: '%b %-d, %Y'
+      short: '%B %d'
+
+  payments:
+    bundles:
+      button-high: Purchase <span class='featured'>%{sessions_count}</span> sessions for %{amount}
+      button-low: Purchase <span class='featured'>%{sessions_count}</span> sessions for %{amount}
+      button-medium: Purchase <span class='featured'>%{sessions_count}</span> sessions for %{amount}
+      features-high:
+      - Students who are fully committed
+      - Test preparation
+      - Certification program
+      features-low:
+      - First-time users
+      - Fluent speakers with a specific need
+      features-medium:
+      - All levels of proficiency
+      - Ease of use and flexibility
+      - Preparing to go abroad
+      features-prefix: 'Good for:'
+      high-definition: 50 hours of learning time @ <span class='featured'>%{amount}</span> per hour
+      high-hours: 15 minutes each @ <span class='featured'>%{amount}</span> per session
+      high-sessions: <span class='featured'>%{sessions_count}</span> sessions
+      high-title: Fluentlee Course
+      low-definition: 1 hour of learning time @ <span class='featured'>%{amount}</span> per hour
+      low-hours: 15 minutes each @ <span class='featured'>%{amount}</span> per session
+      low-sessions: <span class='featured'>%{sessions_count}</span> sessions
+      low-title: Pay-As-You-Go
+      medium-definition: 8 hours of learning time @ <span class='featured'>%{amount}</span> per hour
+      medium-hours: 15 minutes each @ <span class='featured'>%{amount}</span> per session
+      medium-sessions: <span class='featured'>%{sessions_count}</span> sessions
+      medium-title: Standard
+      popular: Most popular
+      section-title: Choose a bundle

@@ -1,0 +1,43 @@
+- unit = symbol_for_currency(@payment.currency)
+- if @payment.valid_paypal_payment?
+  .row-fluid
+    .span5
+      h1.first-one= t('.title')
+
+    .span6.offset1
+      p
+        a.paypal-badge href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"
+          img width="160" height="55" src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_SbyPP_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"
+      p= t('.sub-title', amount: number_to_currency(@payment.amount, unit: unit)).html_safe
+      = form_for @payment do |f|
+        = render "shared/errors", object: f.object
+        .content-box-mini.last-one
+          = f.button class: "btn btn-success" do
+            i.icon-ok
+            | &nbsp;&nbsp;
+            = t('helpers.submit.payment.update')
+- else
+  .content-box-mega.first-one
+    .row-fluid
+      .span6.offset1
+        h1.first-one Payment
+        h4.shopping-cart-header
+          .topic-group-badge.mini
+            i.icon-shopping-cart
+          - cost = number_to_currency(@payment.amount, unit: unit)
+
+      .span3.offset1
+        .content-box-mini.first-one
+          = form_for @payment do |f|
+            = f.hidden_field :payment_method, value: Payment::PAYMENT_METHODS[:paypal]
+            button.btn.btn-large.btn-block.btn-payment
+              .visuallyhidden= t('payments.show.pay-paypal')
+              = image_tag "payments-paypal.png", width: 118, height: 42, class: "paypal-pay-image"
+        .content-box-mini
+          = form_for @payment, html: { class: 'stripe' } do |f|
+            script*stripe_script_attrs(@payment)
+            = f.hidden_field :payment_method, value: Payment::PAYMENT_METHODS[:stripe]
+            = hidden_field_tag :stripeToken
+            button.btn.btn-large.btn-block.btn-payment
+              .visuallyhidden= t('payments.show.pay-cards')
+              = image_tag "payments-cards.png", width: 153, height: 30, class: "cards-pay-image"
