@@ -57,6 +57,25 @@ class PaymentsController < ApplicationController
     redirect_to new_payment_url, alert: I18n.t('payments.paypal.payment-cancel')
   end
 
+  def twocheckout_notification
+    @notification = Twocheckout::ValidateResponse.notification({sale_id: params['sale_id'], vendor_id: 1817037,
+      invoice_id: params['invoice_id'], secret: "tango", md5_hash: params['md5_hash']})
+    @payment = Payment.find(params['sale_id'])
+    if params['message_type'] == "FRAUD_STATUS_CHANGED"
+      begin
+        if @notification['code'] == "PASS" and params['fraud_status'] == "pass"
+          @payment.charged = true
+          render text: 'Fraud Status Passed'
+        else
+          @payment.charged = false
+          render text: 'Fraud Status Failed or MD5 Hash does not match!'
+        end
+        ensure
+        @payment.save
+      end
+    end
+  end
+
 
   private
   def new_payment_params
