@@ -27,6 +27,7 @@ gem 'stripe'
 gem 'paypal-express'
 gem 'slim'
 gem 'rails_admin', '~> 0.6.2'
+gem 'twocheckout'
 
 group :development do
   gem 'foreman'

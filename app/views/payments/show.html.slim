@@ -1,4 +1,5 @@
 - unit = symbol_for_currency(@payment.currency)
+- @params = { 'sid' => '1817037', 'mode' => '2CO','li_0_name' => 'Example Product', 'li_0_price' => '1.00'}
 - if @payment.valid_paypal_payment?
   .row-fluid
     .span5
@@ -38,6 +39,9 @@
             script*stripe_script_attrs(@payment)
             = f.hidden_field :payment_method, value: Payment::PAYMENT_METHODS[:stripe]
             = hidden_field_tag :stripeToken
-            button.btn.btn-large.btn-block.btn-payment
-              .visuallyhidden= t('payments.show.pay-cards')
-              = image_tag "payments-cards.png", width: 153, height: 30, class: "cards-pay-image"
+            / button.btn.btn-large.btn-block.btn-payment
+            /   .visuallyhidden= t('payments.show.pay-cards')
+            /   = image_tag "payments-cards.png", width: 153, height: 30, class: "cards-pay-image"
+        .content-box-mini
+          - @form = Twocheckout::Checkout.form(@params, "Pay for your Order")
+          = @form.html_safe
