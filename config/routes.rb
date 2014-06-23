@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  match '/payments/payment', to: 'payments#payment', as: 'paymentspayment', via: [:get]
+  match '/payments/relay_response', to: 'payments#relay_response', as: 'payments_relay_response', via: [:post]
+  match '/payments/receipt', to: 'payments#receipt', as: 'payments_receipt', via: [:get]
   authenticated :user, lambda {|u| u.admin?} do
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   end

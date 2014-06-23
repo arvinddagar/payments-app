@@ -43,5 +43,7 @@
             /   .visuallyhidden= t('payments.show.pay-cards')
             /   = image_tag "payments-cards.png", width: 153, height: 30, class: "cards-pay-image"
         .content-box-mini
-          - @form = Twocheckout::Checkout.form(@params, "Pay for your Order")
+          - @form = Twocheckout::Checkout.form(@params, "Pay for your Order with 2checkout")
           = @form.html_safe
+        .content-box-mini
+          = link_to 'Paywith Authoize.net', paymentspayment_path

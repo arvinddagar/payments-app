@@ -1,0 +1,8 @@
+default:
+  api_login_id: 2G6zL4j9Rp
+  api_transaction_key: 8e52c47VM62Aky27
+  merchant_hash_value: 
+
+development: 
+test: 
+production: 

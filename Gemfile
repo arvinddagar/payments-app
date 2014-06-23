@@ -28,6 +28,7 @@ gem 'paypal-express'
 gem 'slim'
 gem 'rails_admin', '~> 0.6.2'
 gem 'twocheckout'
+gem 'authorize-net'
 
 group :development do
   gem 'foreman'
